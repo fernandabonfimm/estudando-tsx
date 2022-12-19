@@ -6,16 +6,6 @@ export default function () {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const handleLogin = () => {
-    if (!email) {
-      console.log("Insira o email no campo de e-mail");
-    } else if (!password) {
-      console.log("Insira o campo de senha a sua senha");
-    } else {
-      console.log("Login realizado com sucesso!");
-    }
-  };
-
   React.useEffect(() => {
     // O useEffect impede que todas vez que eu altere um estado, o codigo nao seja repetido diversas vezes e controle por sua vez o codigo
     if (window.confirm("Você é homem?")) {
@@ -34,9 +24,22 @@ export default function () {
     //Suponha que precise realizar uma operação de certo grau de dificuldade, normalmente utilizamos o useMemo para o tal
     // Exemplo de operação: Calculos que nao devem ser executado varias vezes
     // Nesse caso usaremos para a qntd de caracteres no e-mail
-    console.log('Executou!');
+    console.log("Executou!");
     return email.length * 1000;
   }, [email.length]);
+
+  const handleLogin = React.useCallback(() => {
+    //O useCallback serve para armazenar funções em memória
+    // Ele tambem melhora a perfomace do seu projeto.
+
+    if (!email) {
+      console.log("Insira o email no campo de e-mail");
+    } else if (!password) {
+      console.log("Insira o campo de senha a sua senha");
+    } else {
+      console.log("Login realizado com sucesso!");
+    }
+  }, [email, password]);
 
   return (
     <Container>
