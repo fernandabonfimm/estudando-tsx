@@ -16,10 +16,33 @@ export default function () {
     }
   };
 
+  React.useEffect(() => {
+    // O useEffect impede que todas vez que eu altere um estado, o codigo nao seja repetido diversas vezes e controle por sua vez o codigo
+    if (window.confirm("Você é homem?")) {
+      console.log("Homem");
+    } else {
+      console.log("Mulher");
+    }
+  }, []);
+
+  React.useEffect(() => {
+    console.log(email);
+    console.log(password);
+  }, [email, password]);
+
+  const emailLenght = React.useMemo(() => {
+    //Suponha que precise realizar uma operação de certo grau de dificuldade, normalmente utilizamos o useMemo para o tal
+    // Exemplo de operação: Calculos que nao devem ser executado varias vezes
+    // Nesse caso usaremos para a qntd de caracteres no e-mail
+    console.log('Executou!');
+    return email.length * 1000;
+  }, [email.length]);
+
   return (
     <Container>
-      <Title>Estudando useState</Title>
+      <Title>Estudando React</Title>
       <Form>
+        <p>Quantidade de caracteres no e-mail: {emailLenght}</p>
         <Label>
           <span>E-mail</span>
           <Input
