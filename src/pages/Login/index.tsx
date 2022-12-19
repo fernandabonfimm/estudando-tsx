@@ -2,6 +2,9 @@ import React from "react";
 import { Container, Input, Title, Form, Label, Button } from "./styles";
 
 export default function () {
+  // Utilizamos o useRef para pegar e guardar por referencias valores atribuidos a ele
+  const inputPasswordRef = React.useRef<HTMLInputElement>(null);
+
   // guardados valores no state em forma de array, objetos, etc.. e independente do tipo do objeto
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -39,6 +42,10 @@ export default function () {
     } else {
       console.log("Login realizado com sucesso!");
     }
+
+    if (inputPasswordRef !== null) {
+      inputPasswordRef.current?.focus();
+    }
   }, [email, password]);
 
   return (
@@ -51,6 +58,9 @@ export default function () {
           <Input
             type={"email"}
             value={email}
+            onKeyDown={(e) =>
+              e.key === "enter" ? inputPasswordRef.current?.focus() : undefined
+            }
             onChange={(e) => setEmail(e.target.value)}
           />
         </Label>
@@ -59,6 +69,7 @@ export default function () {
           <Input
             type={"password"}
             value={password}
+            ref={inputPasswordRef}
             onChange={(e) => setPassword(e.target.value)}
           />
         </Label>
