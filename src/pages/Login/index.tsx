@@ -1,4 +1,5 @@
 import React from "react";
+import InputGeneral from "../../components/inputGeneral";
 import { Container, Input, Title, Form, Label, Button } from "./styles";
 
 export default function () {
@@ -53,26 +54,20 @@ export default function () {
       <Title>Estudando React</Title>
       <Form>
         <p>Quantidade de caracteres no e-mail: {emailLenght}</p>
-        <Label>
-          <span>E-mail</span>
-          <Input
-            type={"email"}
-            value={email}
-            onKeyDown={(e) =>
-              e.key === "enter" ? inputPasswordRef.current?.focus() : undefined
-            }
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </Label>
-        <Label>
-          <span>Senha</span>
-          <Input
-            type={"password"}
-            value={password}
-            ref={inputPasswordRef}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Label>
+        <InputGeneral
+          type="email"
+          label={"E-mail"}
+          value={email}
+          onChange={(newValue) => setEmail(newValue)}
+          onKeyDown={() => inputPasswordRef.current?.focus()}
+        />
+        <InputGeneral
+          type="password"
+          label={"Senha"}
+          value={password}
+          onChange={(newValue) => setPassword(newValue)}
+          ref={inputPasswordRef}
+        />
         <Button type="button" onClick={() => handleLogin()}>
           Entrar
         </Button>
